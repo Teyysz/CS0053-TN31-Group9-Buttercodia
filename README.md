@@ -152,8 +152,8 @@ The start time is stored as a Unix timestamp, and the status is `ACTIVE` or `COM
 |---|---|
 | Theo | Main menu and program integration |
 | Daniel | Parking rates, slot display, and occupancy tracking |
-| Odda | File storage, rental records, and expiration handling |
 | Patrick | Rental transactions, payment information, and input handling |
+| Odda | File storage, rental records, and expiration handling |
 
 These responsibilities describe the current code division. Each member must also contribute to testing, GitHub collaboration, and explaining their own code during the defense.
 
