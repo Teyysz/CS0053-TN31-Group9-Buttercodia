@@ -12,8 +12,18 @@ static void showMenu() {
          << "2. Rent a parking space\n"
          << "3. View parking rentals\n"
          << "4. Search rental history\n"
-         << "5. Exit\n"
+         << "5. View rental summary\n"
+         << "6. Exit\n"
          << "------------------------------------\n";
+}
+
+static void showRentalSummary(const vector<Reservation>& rentals) {
+    const int active = countRentalsByStatus(rentals, RentalStatus::ACTIVE);
+    const int completed = countRentalsByStatus(rentals, RentalStatus::COMPLETED);
+    cout << "Rental Summary\n"
+         << "Total rentals: " << rentals.size() << '\n'
+         << "Active rentals: " << active << '\n'
+         << "Completed rentals: " << completed << '\n';
 }
 
 int main() {
@@ -42,15 +52,16 @@ int main() {
             case 2: makeReservation(parking, rentals); break;
             case 3: showReservations(rentals); break;
             case 4: searchRentalHistory(rentals); break;
-            cout << "Thank you for using Buttercodia Parking.\n";
-            default: cout << "Invalid choice. Please select 1 to 5.\n";
+            case 5: showRentalSummary(rentals); break;
+            case 6: cout << "Thank you for using Buttercodia Parking.\n"; break;
+            default: cout << "Invalid choice. Please select 1 to 6.\n";
         }
 
-        if (choice != 5) {
+        if (choice != 6) {
             cout << "\nPress Enter to continue...";
             cin.ignore(1000, '\n');
             cin.get();
             clearScreen();
         }
-    } while (choice != 5);
+    } while (choice != 6);
 }

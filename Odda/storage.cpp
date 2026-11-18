@@ -81,3 +81,8 @@ int nextRentalNumber(const vector<Reservation>& rentals) {
     for (const auto& r : rentals) highest = max(highest, r.rentalNumber);
     return highest + 1;
 }
+
+int countRentalsByStatus(const vector<Reservation>& rentals, RentalStatus status) {
+    return static_cast<int>(count_if(rentals.begin(), rentals.end(),
+        [status](const Reservation& rental) { return rental.status == status; }));
+}

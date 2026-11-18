@@ -19,3 +19,4 @@ bool loadDatabase(vector<Reservation>& rentals);
 bool saveDatabase(const vector<Reservation>& rentals);
 bool refreshExpiredRentals(vector<Reservation>& rentals);
 int nextRentalNumber(const vector<Reservation>& rentals);
+int countRentalsByStatus(const vector<Reservation>& rentals, RentalStatus status);
