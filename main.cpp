@@ -1,7 +1,8 @@
 #include "../Daniel/parking_slots.h"
-#include "../Partick/reservations.h"
+#include "../Patrick/reservations.h"
 #include "../Odda/storage.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -41,7 +42,7 @@ int main() {
             case 2: makeReservation(parking, rentals); break;
             case 3: showReservations(rentals); break;
             case 4: searchRentalHistory(rentals); break;
-            case 5: cout << "Thank you for using ParkClass.\n"; break;
+            cout << "Thank you for using Buttercodia Parking.\n";
             default: cout << "Invalid choice. Please select 1 to 5.\n";
         }
 
