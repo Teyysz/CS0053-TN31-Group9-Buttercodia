@@ -1,56 +1,66 @@
 #include "../Daniel/parking_slots.h"
-#include "../Patrick/reservations.h"
 #include "../Odda/storage.h"
+#include "../Patrick/reservations.h"
 #include <iostream>
 #include <vector>
+
 
 using namespace std;
 
 static void showMenu() {
-    cout << "--------------- MENU ---------------\n"
-         << "1. View parking rates\n"
-         << "2. Rent a parking space\n"
-         << "3. View parking rentals\n"
-         << "4. Search rental history\n"
-         << "5. Exit\n"
-         << "------------------------------------\n";
+  cout << "--------------- MENU ---------------\n"
+       << "1. View parking rates\n"
+       << "2. Rent a parking space\n"
+       << "3. View parking rentals\n"
+       << "4. Search rental history\n"
+       << "5. Exit\n"
+       << "------------------------------------\n";
 }
 
 int main() {
-    ParkingState parking;
-    vector<Reservation> rentals;
-    loadDatabase(rentals);
+  ParkingState parking;
+  vector<Reservation> rentals;
+  loadDatabase(rentals);
+  refreshExpiredRentals(rentals);
+  rebuildOccupancy(parking, rentals);
+  saveDatabase(rentals);
+
+  cout << "====================================\n"
+       << "         BUTTERCODIA PARKING       \n"
+       << "====================================\n";
+
+  int choice;
+  do {
     refreshExpiredRentals(rentals);
     rebuildOccupancy(parking, rentals);
     saveDatabase(rentals);
+    showMenu();
+    choice = readNumber("Choose an option: ");
+    cout << '\n';
 
-    cout << "====================================\n"
-         << "         BUTTERCODIA PARKING       \n"
-         << "====================================\n";
+    switch (choice) {
+    case 1:
+      showRates();
+      break;
+    case 2:
+      makeReservation(parking, rentals);
+      break;
+    case 3:
+      showReservations(rentals);
+      break;
+    case 4:
+      searchRentalHistory(rentals);
+      break;
+      cout << "Thank you for using Buttercodia Parking.\n";
+    default:
+      cout << "Invalid choice. Please select 1 to 5.\n";
+    }
 
-    int choice;
-    do {
-        refreshExpiredRentals(rentals);
-        rebuildOccupancy(parking, rentals);
-        saveDatabase(rentals);
-        showMenu();
-        choice = readNumber("Choose an option: ");
-        cout << '\n';
-
-        switch (choice) {
-            case 1: showRates(); break;
-            case 2: makeReservation(parking, rentals); break;
-            case 3: showReservations(rentals); break;
-            case 4: searchRentalHistory(rentals); break;
-            cout << "Thank you for using Buttercodia Parking.\n";
-            default: cout << "Invalid choice. Please select 1 to 5.\n";
-        }
-
-        if (choice != 5) {
-            cout << "\nPress Enter to continue...";
-            cin.ignore(1000, '\n');
-            cin.get();
-            clearScreen();
-        }
-    } while (choice != 5);
+    if (choice != 5) {
+      cout << "\nPress Enter to continue...";
+      cin.ignore(1000, '\n');
+      cin.get();
+      clearScreen();
+    }
+  } while (choice != 5);
 }
