@@ -1,5 +1,6 @@
 #include "storage.h"
 #include <fstream>
+#include <limits>
 #include <sstream>
 #include <algorithm>
 
@@ -8,16 +9,42 @@ static vector<string> split(const string& line) {
     while (getline(stream, field, '|')) fields.push_back(field);
     return fields;
 }
+
+static bool parseInt(const string& text, int& value) {
+    istringstream stream(text);
+    stream >> value;
+    return stream && stream.eof();
+}
+
+static bool parseTime(const string& text, time_t& value) {
+    long long parsed = 0;
+    istringstream stream(text);
+    stream >> parsed;
+    if (!stream || !stream.eof() ||
+        parsed < static_cast<long long>(numeric_limits<time_t>::min()) ||
+        parsed > static_cast<long long>(numeric_limits<time_t>::max())) {
+        return false;
+    }
+    value = static_cast<time_t>(parsed);
+    return true;
+}
+
 bool loadDatabase(vector<Reservation>& rentals) {
     ifstream file(DATABASE_FILE); if (!file) return false;
     string line; rentals.clear();
     while (getline(file, line)) {
         if (line.empty() || line[0] == '#') continue;
-        auto f = split(line); if (f.size() < 10) continue;
-        Reservation r; r.rentalNumber = stoi(f[0]); r.name=f[1]; r.plate=f[2]; r.tier=f[3];
-        r.paymentMethod=f[4]; r.paymentDetails=f[5]; r.slot=stoi(f[6]); r.hours=stoi(f[7]);
-        r.total=stoi(f[8]); r.startTime=stoll(f[9]);
-        r.status = f.size() >= 11 && f[10] == "COMPLETED" ? RentalStatus::COMPLETED : RentalStatus::ACTIVE;
+        auto f = split(line); if (f.size() < 10 || f.size() > 11) continue;
+        Reservation r;
+        if (!parseInt(f[0], r.rentalNumber) || !parseInt(f[6], r.slot) ||
+            !parseInt(f[7], r.hours) || !parseInt(f[8], r.total) ||
+            !parseTime(f[9], r.startTime)) {
+            continue;
+        }
+        r.name=f[1]; r.plate=f[2]; r.tier=f[3];
+        r.paymentMethod=f[4]; r.paymentDetails=f[5];
+        if (f.size() == 11 && f[10] != "ACTIVE" && f[10] != "COMPLETED") continue;
+        r.status = f.size() == 11 && f[10] == "COMPLETED" ? RentalStatus::COMPLETED : RentalStatus::ACTIVE;
         rentals.push_back(r);
     }
     return true;
