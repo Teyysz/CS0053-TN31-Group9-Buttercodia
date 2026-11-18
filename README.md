@@ -55,6 +55,15 @@ Keep the four source folders together in the project root. The code uses relativ
 
 The folder name `Partick` matches the current source files and compilation commands.
 
+### Parking Slot Module
+
+Daniel's module exposes a `ParkingState` object containing 100 slots for each
+tier. Use `parkingTierFromChoice()` to convert the menu choice (1–3),
+`parkingRate()` and `parkingTierName()` for rental details, and
+`occupySlot()`/`releaseSlot()` to update availability. Call
+`displayParkingSlots()` to show `O` for available slots and `X` for occupied
+slots. Invalid tier or slot values are rejected by the validation helpers.
+
 ## Compilation and Execution
 
 Open a terminal in the project root, where the `Theo`, `Daniel`, `Odda`, and `Partick` folders are located. All four `.cpp` files must be compiled together.
