@@ -1,5 +1,6 @@
 #include "storage.h"
 #include <fstream>
+#include <iostream>
 #include <limits>
 #include <sstream>
 #include <algorithm>
@@ -49,14 +50,23 @@ bool loadDatabase(vector<Reservation>& rentals) {
     }
     return true;
 }
-void saveDatabase(const vector<Reservation>& rentals) {
-    ofstream file(DATABASE_FILE); if (!file) return;
+bool saveDatabase(const vector<Reservation>& rentals) {
+    ofstream file(DATABASE_FILE);
+    if (!file) {
+        cerr << "Unable to open " << DATABASE_FILE << " for saving.\n";
+        return false;
+    }
     file << "# rentalNumber|name|plate|tier|paymentMethod|paymentDetails|slot|hours|total|startTime|status\n";
     for (const auto& r : rentals)
         file << r.rentalNumber << '|' << r.name << '|' << r.plate << '|' << r.tier << '|'
              << r.paymentMethod << '|' << r.paymentDetails << '|' << r.slot << '|' << r.hours << '|'
              << r.total << '|' << static_cast<long long>(r.startTime) << '|'
              << (r.status == RentalStatus::ACTIVE ? "ACTIVE" : "COMPLETED") << '\n';
+    if (!file) {
+        cerr << "Unable to finish saving " << DATABASE_FILE << ".\n";
+        return false;
+    }
+    return true;
 }
 bool refreshExpiredRentals(vector<Reservation>& rentals) {
     bool changed = false; time_t now = time(nullptr);
