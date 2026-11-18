@@ -51,20 +51,20 @@ Keep the four source folders together in the project root. The code uses relativ
 | `Theo/main.cpp` | Main menu, startup, and program integration |
 | `Daniel/parking_slots.cpp` and `parking_slots.h` | Parking rates, slot display, and occupancy tracking |
 | `Odda/storage.cpp` and `storage.h` | Rental data structures, file storage, rental numbers, and expiration handling |
-| `Partick/reservations.cpp` and `reservations.h` | Rental creation, payment information, rental display, and input helpers |
+| `Patrick/reservations.cpp` and `reservations.h` | Rental creation, payment information, rental display, and input helpers |
 
-The folder name `Partick` matches the current source files and compilation commands.
+The folder name `Patrick` matches the current source files and compilation commands.
 
 ## Compilation and Execution
 
-Open a terminal in the project root, where the `Theo`, `Daniel`, `Odda`, and `Partick` folders are located. All four `.cpp` files must be compiled together.
+Open a terminal in the project root, where the `Theo`, `Daniel`, `Odda`, and `Patrick` folders are located. All four `.cpp` files must be compiled together.
 
 ### Windows PowerShell or Command Prompt
 
 Compile:
 
 ```sh
-g++ -std=c++17 -Wall -Wextra -pedantic Theo/main.cpp Daniel/parking_slots.cpp Odda/storage.cpp Partick/reservations.cpp -o buttercodia.exe
+g++ -std=c++17 -Wall -Wextra -pedantic Theo/main.cpp Daniel/parking_slots.cpp Odda/storage.cpp Patrick/reservations.cpp -o buttercodia.exe
 ```
 
 Run:
@@ -78,7 +78,7 @@ Run:
 Compile:
 
 ```sh
-g++ -std=c++17 -Wall -Wextra -pedantic Theo/main.cpp Daniel/parking_slots.cpp Odda/storage.cpp Partick/reservations.cpp -o buttercodia
+g++ -std=c++17 -Wall -Wextra -pedantic Theo/main.cpp Daniel/parking_slots.cpp Odda/storage.cpp Patrick/reservations.cpp -o buttercodia
 ```
 
 Run:
