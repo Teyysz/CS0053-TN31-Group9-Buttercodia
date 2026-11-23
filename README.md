@@ -79,7 +79,7 @@ g++ -std=c++17 -Wall -Wextra -pedantic main.cpp Daniel/parking_slots.cpp Odda/st
 Run:
 
 ```powershell
-.\buttercodia.exe
+./buttercodia.exe
 ```
 
 ### Linux or macOS with G++ Available
