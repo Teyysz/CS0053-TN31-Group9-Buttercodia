@@ -73,7 +73,7 @@ Open a terminal in the project root, where the `Theo`, `Daniel`, `Odda`, and `Pa
 Compile:
 
 ```sh
-g++ -std=c++17 -Wall -Wextra -pedantic Theo/main.cpp Daniel/parking_slots.cpp Odda/storage.cpp Patrick/reservations.cpp -o buttercodia.exe
+g++ -std=c++17 -Wall -Wextra -pedantic main.cpp Daniel/parking_slots.cpp Odda/storage.cpp Patrick/reservations.cpp -o buttercodia.exe
 ```
 
 Run:
